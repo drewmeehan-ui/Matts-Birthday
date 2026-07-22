@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="image-slot.js"></script>
+  <style id="__om-edit-overrides"></style>
+  <style>
+    body { margin:0; background:#e8e3d6; }
+    image-slot { display:block; }
+    button { font-family:inherit; }
+  </style>
+</helmet>
+
+<div style="padding:52px; box-sizing:border-box; display:flex; justify-content:center;">
+  <x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" dark="{{ true }}" hint-size="402,874">
+    <div style="height:100%; display:flex; flex-direction:column; background:#2d4a36; font-family:'Plus Jakarta Sans',sans-serif;">
+
+      <sc-if value="{{ showCover }}" hint-placeholder-val="{{ false }}">
+        <button onClick="{{ tryEnter }}" style="height:100%; width:100%; border:none; background:#2d4a36; cursor:pointer; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:0 32px; box-sizing:border-box; font-family:'Plus Jakarta Sans',sans-serif;">
+          <div style="font-size:11px; letter-spacing:.32em; text-transform:uppercase; color:#c4a566;">For Matt</div>
+          <div style="font-weight:600; font-size:22px; color:#f4efe2; margin-top:16px; text-align:center; letter-spacing:.02em;">A Weekend Away</div>
+          <div style="margin:44px 0 6px; font-weight:700; font-size:76px; color:#f4efe2; line-height:1;">{{ daysLeft }}</div>
+          <div style="font-size:12px; letter-spacing:.24em; text-transform:uppercase; color:#9fb29a;">days to go</div>
+          <div style="margin-top:52px; font-size:13px; letter-spacing:.06em; color:#cdd4c4;">{{ coverHint }}</div>
+        </button>
+      </sc-if>
+
+      <sc-if value="{{ notCover }}" hint-placeholder-val="{{ true }}">
+      <div style="height:100%; display:flex; flex-direction:column;">
+        <div style="flex:none; padding:66px 24px 14px;">
+          <div style="display:flex; align-items:center; justify-content:space-between;">
+            <div>
+              <div style="font-size:11px; letter-spacing:.28em; text-transform:uppercase; color:#c4a566;">For Matt</div>
+              <div style="font-family:'Plus Jakarta Sans',sans-serif; font-weight:700; font-size:28px; color:#f4efe2; margin-top:3px;">Yarra Valley</div>
+            </div>
+            <image-slot id="app-avatar" style="width:52px; height:52px; flex:none;" shape="circle" placeholder="Photo"></image-slot>
+          </div>
+          <div style="display:flex; gap:8px; margin-top:18px;">
+            <button onClick="{{ selectThu }}" style="flex:1; border:none; border-radius:10px; padding:9px 0; font-size:14px; letter-spacing:.04em; cursor:pointer; background:{{ thuBg }}; color:{{ thuColor }};">Thu</button>
+            <button onClick="{{ selectFri }}" style="flex:1; border:none; border-radius:10px; padding:9px 0; font-size:14px; letter-spacing:.04em; cursor:pointer; background:{{ friBg }}; color:{{ friColor }};">Fri</button>
+            <button onClick="{{ selectSat }}" style="flex:1; border:none; border-radius:10px; padding:9px 0; font-size:14px; letter-spacing:.04em; cursor:pointer; background:{{ satBg }}; color:{{ satColor }};">Sat</button>
+          </div>
+        </div>
+
+        <div style="flex:1; overflow:auto; padding:4px 24px 24px;">
+          <sc-if value="{{ showToday }}" hint-placeholder-val="{{ true }}">
+            <div>
+              <div style="font-size:12px; letter-spacing:.18em; text-transform:uppercase; color:#9fb29a; margin:10px 0 3px;">{{ cur.date }}</div>
+              <div style="font-family:'Plus Jakarta Sans',sans-serif; font-weight:700; font-size:25px; color:#f4efe2; margin-bottom:16px;">{{ cur.title }}</div>
+              <sc-for list="{{ cur.items }}" as="it" hint-placeholder-count="3">
+                <div style="padding:14px 0; border-bottom:1px solid rgba(196,165,102,.22);">
+                  <div style="font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:#c4a566;">{{ it.time }}</div>
+                  <div style="font-family:'Plus Jakarta Sans',sans-serif; font-weight:700; font-size:18px; color:#f4efe2; margin:3px 0 4px;">{{ it.title }}</div>
+                  <div style="font-size:14.5px; color:#cdd4c4; line-height:1.55;">{{ it.desc }}</div>
+                </div>
+              </sc-for>
+            </div>
+          </sc-if>
+          <sc-if value="{{ showOverview }}" hint-placeholder-val="{{ false }}">
+            <div>
+              <div style="font-family:'Plus Jakarta Sans',sans-serif; font-weight:700; font-size:22px; color:#f4efe2; margin:12px 0 18px;">The Weekend</div>
+
+              <button onClick="{{ selectThu }}" style="display:block; width:100%; text-align:left; background:none; border:none; padding:0; cursor:pointer;">
+                <div style="font-size:10.5px; letter-spacing:.16em; text-transform:uppercase; color:#c4a566; margin-bottom:6px;">Thu &middot; {{ thuDay.date }}</div>
+                <div style="font-family:'Plus Jakarta Sans',sans-serif; font-weight:700; font-size:17px; color:#f4efe2; margin-bottom:10px;">{{ thuDay.title }}</div>
+              </button>
+              <sc-for list="{{ thuDay.items }}" as="it" hint-placeholder-count="2">
+                <div style="font-size:13.5px; color:#cdd4c4; padding:3px 0;">{{ it.time }} — {{ it.title }}</div>
+              </sc-for>
+
+              <div style="height:1px; background:rgba(196,165,102,.22); margin:18px 0;"></div>
+
+              <button onClick="{{ selectFri }}" style="display:block; width:100%; text-align:left; background:none; border:none; padding:0; cursor:pointer;">
+                <div style="font-size:10.5px; letter-spacing:.16em; text-transform:uppercase; color:#c4a566; margin-bottom:6px;">Fri &middot; {{ friDay.date }}</div>
+                <div style="font-family:'Plus Jakarta Sans',sans-serif; font-weight:700; font-size:17px; color:#f4efe2; margin-bottom:10px;">{{ friDay.title }}</div>
+              </button>
+              <sc-for list="{{ friDay.items }}" as="it" hint-placeholder-count="5">
+                <div style="font-size:13.5px; color:#cdd4c4; padding:3px 0;">{{ it.time }} — {{ it.title }}</div>
+              </sc-for>
+
+              <div style="height:1px; background:rgba(196,165,102,.22); margin:18px 0;"></div>
+
+              <button onClick="{{ selectSat }}" style="display:block; width:100%; text-align:left; background:none; border:none; padding:0; cursor:pointer;">
+                <div style="font-size:10.5px; letter-spacing:.16em; text-transform:uppercase; color:#c4a566; margin-bottom:6px;">Sat &middot; {{ satDay.date }}</div>
+                <div style="font-family:'Plus Jakarta Sans',sans-serif; font-weight:700; font-size:17px; color:#f4efe2; margin-bottom:10px;">{{ satDay.title }}</div>
+              </button>
+              <sc-for list="{{ satDay.items }}" as="it" hint-placeholder-count="2">
+                <div style="font-size:13.5px; color:#cdd4c4; padding:3px 0;">{{ it.time }} — {{ it.title }}</div>
+              </sc-for>
+            </div>
+          </sc-if>
+        </div>
+
+        <div style="flex:none; display:flex; gap:8px; padding:10px 24px 44px; border-top:1px solid rgba(196,165,102,.22);">
+          <button onClick="{{ goToday }}" style="flex:1; border:none; border-radius:10px; padding:10px 0; font-size:13.5px; letter-spacing:.03em; cursor:pointer; background:{{ todayBg }}; color:{{ todayColor }};">Today</button>
+          <button onClick="{{ goOverview }}" style="flex:1; border:none; border-radius:10px; padding:10px 0; font-size:13.5px; letter-spacing:.03em; cursor:pointer; background:{{ overviewBg }}; color:{{ overviewColor }};">Weekend</button>
+        </div>
+      </div>
+      </sc-if>
+    </div>
+  </x-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { screen: 'cover', day: 'fri' };
+  tripDate = new Date(2026, 6, 30);
+
+  days = {
+    thu: { label: 'Thu', date: '30 Jul', title: 'Arrival', items: [
+      { time: '3:00–4:30', title: 'Drop the pup off at boarding', desc: 'A quick stop before the drive out — he\u2019s all sorted for the weekend.' },
+      { time: 'Dusk', title: 'The drive out', desc: 'Out from Thornbury as the light goes — a stop in Lilydale for provisions.' },
+      { time: 'Evening', title: 'Dinner by the fire', desc: 'A charcuterie board, a good bottle, the fire lit.' },
+    ]},
+    fri: { label: 'Fri', date: '31 Jul', title: 'The Birthday', items: [
+      { time: 'Morning', title: 'Coffee & the grounds', desc: 'A wander around the grounds. No rush at all.' },
+      { time: '12:00', title: 'Punt Road Wines', desc: 'Chardonnay and Cabernet, plus cider from their own orchard.' },
+      { time: '1:00', title: 'Meletos', desc: 'A long Tuscan lunch, just next door.' },
+      { time: '3:00', title: 'Oakridge Wines', desc: 'Cool-climate Pinot and Chardonnay, the vines through big glass.' },
+      { time: 'Evening', title: 'Four Pillars Gin', desc: 'Gin by the fire in Healesville — or a quiet night in.' },
+    ]},
+    sat: { label: 'Sat', date: '1 Aug', title: 'Walk, Cheese & Home', items: [
+      { time: 'Late morning', title: 'Mount Lofty Circuit', desc: 'A climb to views over the Yarra, kangaroos at the top.' },
+      { time: '1:00', title: 'Yarra Valley Dairy', desc: 'A seated cheese tasting, then home — unhurried.' },
+      { time: '3:00–4:30', title: 'Pick him up', desc: 'Swing by boarding on the way through — he\u2019s missed you.' },
+    ]},
+  };
+
+  theme = { activeBg: '#c4a566', activeColor: '#2d4a36', inactiveBg: 'rgba(244,239,226,0.08)', inactiveColor: '#cdd4c4' };
+
+  pill(active) { return active ? { bg: this.theme.activeBg, color: this.theme.activeColor } : { bg: this.theme.inactiveBg, color: this.theme.inactiveColor }; }
+
+  renderVals() {
+    const dayKey = this.state.day;
+    const screen = this.state.screen;
+    const thu = this.pill(dayKey === 'thu');
+    const fri = this.pill(dayKey === 'fri');
+    const sat = this.pill(dayKey === 'sat');
+    const today = this.pill(screen === 'today');
+    const overview = this.pill(screen === 'overview');
+    const go = (day) => () => this.setState({ day, screen: 'today' });
+    const daysLeft = Math.max(0, Math.ceil((this.tripDate - new Date()) / 86400000));
+    const isLocked = new Date() < this.tripDate;
+    const coverHint = isLocked ? 'unlocks Thursday' : 'tap to open';
+    return {
+      coverHint,
+      tryEnter: () => { if (!isLocked) this.setState({ screen: 'today' }); },
+      thuDay: this.days.thu, friDay: this.days.fri, satDay: this.days.sat,
+      cur: this.days[dayKey],
+      showCover: screen === 'cover',
+      notCover: screen !== 'cover',
+      showToday: screen === 'today',
+      showOverview: screen === 'overview',
+      daysLeft,
+      thuBg: thu.bg, thuColor: thu.color,
+      friBg: fri.bg, friColor: fri.color,
+      satBg: sat.bg, satColor: sat.color,
+      todayBg: today.bg, todayColor: today.color,
+      overviewBg: overview.bg, overviewColor: overview.color,
+      selectThu: go('thu'), selectFri: go('fri'), selectSat: go('sat'),
+      goToday: () => this.setState({ screen: 'today' }),
+      goOverview: () => this.setState({ screen: 'overview' }),
+    };
+  }
+}
+</script>
+</body>
+</html>
