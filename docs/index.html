@@ -147,7 +147,7 @@ class Component extends DCLogic {
     const go = (day) => () => this.setState({ day, screen: 'today' });
     const daysLeft = Math.max(0, Math.ceil((this.tripDate - new Date()) / 86400000));
     const isLocked = new Date() < this.tripDate;
-    const coverHint = isLocked ? 'unlocks Thursday' : 'tap to open';
+    const coverHint = isLocked ? 'unlocks Next Thursday' : 'tap to open';
     return {
       coverHint,
       tryEnter: () => { if (!isLocked) this.setState({ screen: 'today' }); },
